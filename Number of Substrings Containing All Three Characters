@@ -1,0 +1,19 @@
+
+class Solution {
+public:
+    int numberOfSubstrings(const std::string& s) {
+        vector<int> freq(3, -1); // Initialize a vector of size 3 with -1
+
+        int count = 0;
+
+        for (int i = 0; i < s.size(); ++i) {
+            freq[s[i] - 'a'] = i;
+
+            if (freq[0] != -1 && freq[1] != -1 && freq[2] != -1) {
+                count += 1 + min({freq[0], freq[1], freq[2]});
+            }
+        }
+
+        return count;
+    }
+};
