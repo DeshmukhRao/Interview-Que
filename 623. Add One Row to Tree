@@ -1,0 +1,53 @@
+class Solution {
+public:
+
+void  dfs(TreeNode* node, int val, int depth,int currdepth)
+{
+    if(node==NULL) return ;
+
+    if(currdepth<depth-1){
+    dfs(node->left,val,depth, currdepth+1);
+    dfs(node->right,val,depth,currdepth+1); 
+    }
+
+    if(currdepth==depth-1)
+    {
+        TreeNode* existingleftchild = node->left;
+        TreeNode* existingrightchild = node->right;
+
+        TreeNode*newleftchild = new  TreeNode(val);
+        TreeNode*newrightchild = new TreeNode(val);
+
+
+        //do connections
+        node->left=newleftchild;
+        node->right =newrightchild;
+
+       newleftchild->left =  existingleftchild;
+       newrightchild->right =  existingrightchild;
+
+
+
+    }
+}
+
+
+
+
+
+
+
+
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+        if(depth==1)
+        {
+              TreeNode*currnode = root;
+            TreeNode*newnode = new TreeNode(val);
+            newnode->left=currnode;
+            return newnode;
+        }
+
+        dfs(root,val,depth,1);
+        return root;
+    }
+};
