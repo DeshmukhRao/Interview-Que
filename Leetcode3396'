@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int minimumOperations(vector<int>& nums) {
+        // Bitset to track seen chakra signatures (values from 1 to 100)
+        bitset<101> seen;
+
+        // Scan the battlefield from the BACK
+        for (int i = nums.size() - 1; i >= 0; i--) {
+            if (seen[nums[i]]) {
+                // Found a clone! Remove from the front up to this point
+                // (i + 3) / 3 gives minimum number of 3-size removals needed to reach index i
+                return (i + 3) / 3;
+            }
+            seen[nums[i]] = 1; // Mark chakra as seen
+        }
+
+        // If we reach here, all shinobi are unique → no operation needed
+        return 0;
+    }
+};
