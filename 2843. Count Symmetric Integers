@@ -1,0 +1,39 @@
+class Solution {
+public:
+
+    bool isp(string s)
+    {
+        int r = s.length();
+        int m = r/2;
+        int i=0, ls= 0,lr = 0;
+        while(i<m)
+        {
+            ls+=(s[i] - '0');
+            i++;
+        }
+    
+        while(i<r)
+        {
+            lr+=(s[i] - '0');
+            i++;
+        }
+
+        return ls == lr;
+    }    
+    int countSymmetricIntegers(int low, int high) {
+        
+        int res = 0;
+        for(int i =low;i<=high;i++)
+        {
+            if(i<1) continue;
+            string s = to_string(i);
+            int n = s.length();
+            // cout<<n<<endl;
+            if(n%2 != 0) continue;
+
+            if(isp(s)) res++;
+        }
+
+        return res;
+    }
+};
