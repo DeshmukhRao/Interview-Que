@@ -1,0 +1,40 @@
+class Solution {
+public:
+
+int solve(int num)
+{
+    int sum=0;
+    while(num)
+    {
+        sum+=num%10;
+        num/=10;
+    }
+    return  sum;
+
+}
+
+    int countLargestGroup(int n) {
+        map<int,int>mp;
+        int cnt=0;
+        int maxsize=0;
+
+        for(int i=1;i<=n;i++)
+        {
+            int digit = solve(i);
+
+            mp[digit]++;
+
+            if(mp[digit]==maxsize)
+            {
+                cnt++;
+            }
+            else if(mp[digit]>maxsize)
+            {
+                maxsize = mp[digit];
+                cnt=1;
+            }
+        }
+
+        return cnt;
+    }
+};
