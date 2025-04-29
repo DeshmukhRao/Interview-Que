@@ -1,0 +1,65 @@
+/*
+class Solution {
+public:
+    long long int countSubarrays(vector<int>& nums, int k) {
+        int n = nums.size();
+        long long int count = 0;
+        unordered_map<int, int> freq;
+
+        // Find the maximum element in nums
+        int mx = *max_element(nums.begin(), nums.end());
+
+        int left = 0;
+        for (int right = 0; right < n; ++right) {
+            freq[nums[right]]++;
+
+            // Shrink the window from the left until condition is met
+            while (freq[mx] >= k && left <= right) {
+                count += n - right; // Count all subarrays ending at right index
+                freq[nums[left]]--;
+                left++;
+            }
+        }
+
+        return count;
+    }
+};
+*/
+
+
+class Solution {
+public:
+    long long  countSubarrays(vector<int>& nums, int k) {
+
+        int left=0;
+        int right=0;
+        long long result=0;
+        int maxc=0;
+
+int mx = *max_element(nums.begin(), nums.end());
+
+        while(right<nums.size())
+        {
+            if(nums[right]==mx)
+            {
+                maxc++;
+            }
+            while(maxc>=k)
+            {
+                result+=nums.size()-right;
+
+                if(nums[left]==mx)
+                {
+                    maxc--;
+
+                }
+                left++;
+
+            }
+            right++;
+        }
+        return result;
+    }
+};
+
+
