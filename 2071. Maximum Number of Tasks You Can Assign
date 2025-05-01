@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool canAssign(const vector<int>& tasks, const vector<int>& workers, int pills, int strength, int count) {
+        multiset<int> availableWorkers(workers.begin(), workers.begin() + count);
+        int pillsUsed = 0;
+
+        for (int taskIndex = count - 1; taskIndex >= 0; --taskIndex) {
+            int requiredStrength = tasks[taskIndex];
+            auto strongestWorker = prev(availableWorkers.end());
+
+            //The strongest worker can do the task directly
+            if (*strongestWorker >= requiredStrength) {
+                availableWorkers.erase(strongestWorker);
+            } else if(pillsUsed >= pills) {
+                return false;
+            } else { //try to use a Pill for weaker worker
+                auto weakWorkerIt = availableWorkers.lower_bound(requiredStrength - strength);
+                if (weakWorkerIt == availableWorkers.end()) {
+                    return false;
+                }
+                availableWorkers.erase(weakWorkerIt);
+                pillsUsed++;
+            }
+        }
+
+        return true;
+    }
+
+    int maxTaskAssign(vector<int>& tasks, vector<int>& workers, int pills, int strength) {
+        sort(begin(tasks), end(tasks));
+        sort(begin(workers), end(workers), greater<int>());
+
+        int l = 0, r = min(tasks.size(), workers.size());
+        int result = 0;
+
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (canAssign(tasks, workers, pills, strength, mid)) {
+                result = mid;
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
+        }
+
+        return result;
+    }
+};
