@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int numEquivDominoPairs(vector<vector<int>>& dominoes) {
+        unordered_map<int, int> m;
+        int count = 0;
+        for(auto& domino:dominoes){
+            if(domino[0] > domino[1]){
+                swap(domino[0], domino[1]);
+            }
+            int key = domino[0]*10 + domino[1];
+            count += m[key]++;
+        }
+        return count;
+    }
+};
