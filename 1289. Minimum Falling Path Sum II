@@ -1,0 +1,37 @@
+class Solution {
+public:
+
+int solve(int i , int notj, int m ,int n,vector<vector<int>>& grid,vector<vector<int>>&dp)
+ {
+    if(i==n) return 0;
+
+    if(dp[i][notj]!=-1) return dp[i][notj];
+
+    int ans =INT_MAX;
+    for(int j=0;j<m;j++)
+    {
+        if(j==notj) continue;
+      ans = min(ans ,grid[i][j]+solve(i+1,j,m,n,grid,dp));
+    } 
+
+    return dp[i][notj] = ans;
+
+
+ }
+
+
+
+    int minFallingPathSum(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+
+        vector<vector<int>>dp(m+1,vector<int>(n+1,-1));
+    int ans = INT_MAX;
+        for(int j =0;j<m;j++)
+        {
+            ans = min(ans,grid[0][j]+solve(1,j,m,n,grid,dp));
+        }
+        return ans;
+        
+    }
+};
