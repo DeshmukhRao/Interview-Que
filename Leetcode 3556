@@ -1,0 +1,61 @@
+class Solution {
+public:
+    bool isPrime(long long num) {
+        if (num <= 1) return false;
+        if (num == 2) return true;
+        if (num % 2 == 0) return false;
+        for (long long i = 3; i * i <= num; i += 2) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
+    long long sumOfLargestPrimes(string s) {
+        int n = s.length();
+        unordered_set<long long> seen;
+        priority_queue<long long> pq;
+
+        for (int k = 1; k <= n; ++k) {
+             //  going till n since it is n th length sunbstring
+    // k=1 1 length substring
+    // k=2 means 2 length substring
+            int i = 0, j = 0;
+            while (j < n) {
+                if (j - i + 1 < k) {
+                    j++;
+                } else if (j - i + 1 == k) {
+                    string sub = s.substr(i, k);
+
+                    // Remove leading zeros
+                    int z = 0;
+                    while (z < sub.size() && sub[z] == '0') z++;
+                    if (z == sub.size()) {
+                        i++; j++;
+                        continue;
+                    }
+
+                    sub = sub.substr(z);
+
+                    long long num = stoll(sub); // no exception here
+                    if (!seen.count(num) && isPrime(num)) {
+                        seen.insert(num);
+                        pq.push(num);
+                    }
+
+                    i++;
+                    j++;
+                }
+            }
+        }
+
+        long long sum = 0;
+        int count = 0;
+        while (!pq.empty() && count < 3) {
+            sum += pq.top();
+            pq.pop();
+            count++;
+        }
+
+        return sum;
+    }
+};
