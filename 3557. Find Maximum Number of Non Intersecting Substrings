@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxSubstrings(string s) {
+        int n=s.length();
+        unordered_map<char, int> mp;
+        int ans=0;
+
+        for(int i=0; i<n; i++){
+            if(mp.count(s[i])==0){
+                mp[s[i]]=i;
+            }
+            else{
+                int idx=mp[s[i]];
+                if((i-idx+1)>=4){
+                    ans++;
+                   mp.clear();
+                }
+            }
+        }
+
+        return ans;
+    }
+};
