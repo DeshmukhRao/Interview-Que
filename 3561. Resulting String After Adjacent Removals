@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string resultingString(string s) {
+        stack<char> st;
+
+        for (char c : s) {
+            if (!st.empty()) {
+                char top = st.top();
+                
+                if (abs(c - top) == 1 || (c == 'a' && top == 'z') || (c == 'z' && top == 'a')) {
+                    st.pop(); 
+                    continue;
+                }
+            }
+            st.push(c);
+        }
+
+        string ans = "";
+        while (!st.empty()) {
+            ans += st.top();
+            st.pop();
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
