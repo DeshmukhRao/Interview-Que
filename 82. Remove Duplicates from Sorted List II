@@ -1,0 +1,70 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+/*
+    ListNode* deleteDuplicates(ListNode* head) {
+      unordered_map<int,int>mp;
+      ListNode* curr= head;
+
+      while(curr!=NULL)
+      {
+          mp[curr->val]++;
+          curr= curr->next;
+      }
+
+ListNode dummy(0);
+ListNode* tail=&dummy;
+
+      while(head)
+      {
+          if(mp[head->val]==1)
+          {
+           tail->next=head;
+           tail=tail->next;
+          }
+          head=head->next;
+      }
+      tail->next=NULL;
+      return dummy.next;
+    }
+    */
+      ListNode* deleteDuplicates(ListNode* head) {
+          
+          unordered_map<int,int>mp;
+          ListNode*curr=head;
+
+          while(curr!=NULL)
+          {
+              mp[curr->val]++;
+              curr=curr->next;
+          }
+
+          ListNode dummy(0); //In this set, dummy is declared as an object of type ListNode.
+          
+          // dont use this ListNode* dummy(0);  In this set, dummy is declared as a pointer to a ListNode.
+
+          ListNode*tail=&dummy;
+
+          while(head)
+          {
+              if(mp[head->val]==1)
+              {
+                  tail->next=head;
+                  tail=tail->next;
+              }
+              head=head->next;
+          }
+          tail->next=NULL;
+          return dummy.next;
+
+      }
+};
