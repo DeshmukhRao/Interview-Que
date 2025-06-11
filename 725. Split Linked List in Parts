@@ -1,0 +1,74 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<ListNode*> splitListToParts(ListNode* head, int k) {
+      /*
+    vector<ListNode*> parts(k, NULL);
+    ListNode* curr = head;
+    ListNode* prev = NULL;
+    int len = 0;
+
+    // Calculate the length of the original linked list
+    while (curr != NULL) {
+        len++;
+        curr = curr->next;
+    }
+
+    int n = len / k;
+    int rem = len % k;
+     curr = head;
+
+    for (int i = 0; i < k && curr; i++, rem--) {
+        parts[i] = curr; // Set the head of the current part
+        for (int j = 0; j < n + (rem > 0); j++) {
+            prev = curr;
+            curr = curr->next;
+        }
+        prev->next = NULL; // Close the current part
+    }
+    return parts;
+}
+
+    
+   
+*/
+
+            vector<ListNode*>parts(k,NULL);
+            ListNode*curr=head;
+            ListNode*prev=NULL;
+            int len=0;
+
+            while(curr!=NULL)
+            {
+                len++;
+                curr=curr->next;
+            }
+            int n = len/k;
+            int rem = len%k;
+
+            curr=head;
+
+            for(int i=0;i<k && curr;i++,rem--)
+            {
+                parts[i]=curr;
+                for(int j=0;j<n+(rem>0) ; j++)
+                {
+                        prev=curr;
+                        curr=curr->next;
+                }
+                prev->next=NULL;
+            }
+            return parts;
+
+    }
+    
+    };    
