@@ -1,0 +1,67 @@
+class Solution {
+public:
+
+/*
+int solve(vector<int>& a)
+  {
+            int n = a.size();
+        return min({ a[n-1]-a[3],a[n-2]-a[2],a[n-4]-a[0],a[n-3]-a[1]});
+  }
+
+
+    int minDifference(vector<int>& nums) {
+        int n = nums.size();
+        if(n<4) return 0;
+        sort(nums.begin(),nums.end());
+
+    return solve(nums);
+    }
+};
+*/
+
+    int mindiff(vector<int>& a) {
+        int n = a.size();
+        // Directly find the minimum of the four possible cases
+        return min({ a[n-1] - a[3], a[n-2] - a[2], a[n-4] - a[0], a[n-3] - a[1] });
+    }
+
+
+int solve(vector<int>& nums)
+   {
+        priority_queue<int, vector<int>,greater<int>>minpq;
+        priority_queue<int>maxpq;
+
+        for(auto ele:nums)
+         {
+            minpq.push(ele);
+            maxpq.push(ele);
+
+            if(minpq.size()>4) minpq.pop();
+         if(maxpq.size()>4) maxpq.pop();
+         }
+
+         
+
+         int l=3;
+         int r =nums.size()-4;
+            
+            while(!maxpq.empty())
+            {
+                nums[l--] = maxpq.top();
+                 maxpq.pop();
+
+                 nums[r++] = minpq.top();
+                  minpq.pop();
+            }
+            return mindiff(nums);
+
+   }
+
+
+ int minDifference(vector<int>& nums) {
+
+        if(nums.size()<=4) return 0;
+        return solve(nums);
+ }
+
+};
